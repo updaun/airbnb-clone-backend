@@ -33,18 +33,21 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+CUSTOM_APPS = [
+    "houses",
+    "users",
+]
 
-INSTALLED_APPS = [
+SYSTEM_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # APP
-    "houses",
-    "users",
 ]
+
+INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
