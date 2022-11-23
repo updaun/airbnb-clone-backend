@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 
 # Application definition
 CUSTOM_APPS = [
-    "houses",
     "users",
 ]
 
