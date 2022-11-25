@@ -39,6 +39,7 @@ CUSTOM_APPS = [
     "users",
     "experiences",
     "categories",
+    "reviews",
 ]
 
 SYSTEM_APPS = [
