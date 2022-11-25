@@ -40,6 +40,7 @@ CUSTOM_APPS = [
     "experiences",
     "categories",
     "reviews",
+    "wishlists",
 ]
 
 SYSTEM_APPS = [
