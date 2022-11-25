@@ -43,6 +43,7 @@ CUSTOM_APPS = [
     "wishlists",
     "bookings",
     "medias",
+    "direct_messages",
 ]
 
 SYSTEM_APPS = [
