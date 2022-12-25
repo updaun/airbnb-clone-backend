@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 class CategorySerializer(serializers.Serializer):
 
-    pk = serializers.IntegerField()
+    pk = serializers.IntegerField(read_only=True)
     name = serializers.CharField(
         required=True,
         max_length=50,
@@ -11,4 +11,4 @@ class CategorySerializer(serializers.Serializer):
     kind = serializers.CharField(
         max_length=15,
     )
-    created_at = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(read_only=True)
