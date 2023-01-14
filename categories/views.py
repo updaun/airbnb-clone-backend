@@ -6,6 +6,7 @@ from rest_framework.exceptions import NotFound
 from django.shortcuts import render
 from .models import Category
 from .serializers import CategorySerializer
+from rest_framework import status
 
 # restframework 없이 api를 만드는 방법
 # def categories(request):
@@ -50,3 +51,6 @@ def category(request, pk):
             return Response(CategorySerializer(updated_category).data)
         else:
             return Response(serializer.data)
+    elif request.method == "DELETE":
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
