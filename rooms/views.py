@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import exceptions
 from .serializers import *
 from reviews.serializers import ReviewSerializer
-from bookings.serializers import PublicBookingSerializer
+from bookings.serializers import PublicBookingSerializer, CreateRoomBookingSerializer
 from medias.serializers import PhotoSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
@@ -267,3 +267,10 @@ class RoomBookings(APIView):
         # bookings = Booking.objects.filter(room__pk=pk)
         serializer = PublicBookingSerializer(bookings, many=True)
         return Response(serializer.data)
+
+    def post(self, request, pk):
+        room = self.get_object(pk)
+        serializer = CreateRoomBookingSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response({"ok": True})
+        return Response(serializer.errors)
