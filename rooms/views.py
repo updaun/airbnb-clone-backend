@@ -108,7 +108,7 @@ class Rooms(APIView):
                     serializer = RoomDetailSerializer(room)
                 return Response(serializer.data)
             except Exception:
-                return exceptions.ParseError("Amenity not found")
+                raise exceptions.ParseError("Amenity not found")
         else:
             return Response(serializer.errors)
 
@@ -157,7 +157,7 @@ class RoomDetail(APIView):
                     serializer = RoomDetailSerializer(room)
                 return Response(serializer.data)
             except Exception:
-                return exceptions.ParseError("Amenity not found")
+                raise exceptions.ParseError("Amenity not found")
         else:
             return Response(serializer.errors)
 
