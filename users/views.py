@@ -22,3 +22,18 @@ class Me(APIView):
             serializer = PrivateUserSerializer(user)
             return Response(serializer.data)
         return Response(serializer.errors)
+
+
+class Users(APIView):
+    def post(self, request):
+        password = request.data.get("password")
+        if not password:
+            raise exceptions.ParseError
+        serializer = PrivateUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            user.set_password(password)
+            user.save()
+            serializer = PrivateUserSerializer(user)
+            return Response(serializer.data)
+        return Response(serializer.errors)
