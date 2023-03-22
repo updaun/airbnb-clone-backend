@@ -24,7 +24,7 @@ class Wishlists(APIView):
             wishlist = serializer.save(user=request.user)
             serializer = WishlistSerializer(wishlist)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 class WishlistDetail(APIView):
@@ -54,7 +54,7 @@ class WishlistDetail(APIView):
             updated_wishlist = serializer.save()
             serializer = WishlistSerializer(updated_wishlist)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 class WishlistToggle(APIView):

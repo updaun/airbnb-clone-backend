@@ -18,7 +18,7 @@ class Perks(APIView):
             perk = serializer.save()
             return Response(PerkSerializer(perk).data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
 
 class PerkDetail(APIView):
@@ -40,7 +40,7 @@ class PerkDetail(APIView):
             updated_perk = serializer.save()
             return Response(PerkSerializer(updated_perk).data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
         perk = self.get_object(pk)

@@ -34,7 +34,7 @@ from rest_framework.viewsets import ModelViewSet
 #             new_category = serializer.save()
 #             return Response(CategorySerializer(new_category).data)
 #         else:
-#             return Response(serializer.errors)
+#             return Response(serializer.errors, status=400)
 
 
 # @api_view(["GET", "PUT", "DELETE"])
@@ -71,7 +71,7 @@ from rest_framework.viewsets import ModelViewSet
 #             new_category = serializer.save()
 #             return Response(CategorySerializer(new_category).data)
 #         else:
-#             return Response(serializer.errors)
+#             return Response(serializer.errors, status=400)
 
 
 # class CategoryDetail(APIView):

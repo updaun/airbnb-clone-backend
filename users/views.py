@@ -25,7 +25,7 @@ class Me(APIView):
             user = serializer.save()
             serializer = PrivateUserSerializer(user)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 class Users(APIView):
@@ -40,7 +40,7 @@ class Users(APIView):
             user.save()
             serializer = PrivateUserSerializer(user)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 class PublicUser(APIView):

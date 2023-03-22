@@ -46,7 +46,7 @@ class Amenities(APIView):
             amenity = serializer.save()
             return Response(AmenitiySerializer(amenity).data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
 
 class AmenityDetail(APIView):
@@ -68,7 +68,7 @@ class AmenityDetail(APIView):
             updated_amenity = serializer.save()
             return Response(AmenitiySerializer(updated_amenity).data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
         amenity = self.get_object(pk)
@@ -111,7 +111,7 @@ class Rooms(APIView):
             except Exception:
                 raise exceptions.ParseError("Amenity not found")
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
 
 class RoomDetail(APIView):
@@ -160,7 +160,7 @@ class RoomDetail(APIView):
             except Exception:
                 raise exceptions.ParseError("Amenity not found")
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
         room = self.get_object(pk)
@@ -199,7 +199,7 @@ class RoomReviews(APIView):
             review = serializer.save(user=request.user, room=self.get_object(pk))
             serializer = ReviewSerializer(review)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 class RoomAmenities(APIView):
@@ -243,7 +243,7 @@ class RoomPhotos(APIView):
             serializer = PhotoSerializer(photo)
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
 
 class RoomBookings(APIView):
@@ -279,4 +279,4 @@ class RoomBookings(APIView):
             )
             serializer = PublicBookingSerializer(booking)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=400)
