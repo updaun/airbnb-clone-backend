@@ -48,3 +48,47 @@ class TestAmenities(APITestCase):
         data = response.json()
         self.assertEqual(response.status_code, 400, "Status code isn't 400.")
         self.assertIn("name", data, "Name isn't in data.")
+
+
+class TestAmenity(APITestCase):
+
+    NAME = "Test Amenity"
+    DESC = "Test Amenity Description"
+
+    def setUp(self):
+        self.amenity = Amenity.objects.create(name=self.NAME, description=self.DESC)
+
+    def test_get_amenity_not_found(self):
+        response = self.client.get(f"/api/v1/rooms/amenities/2")
+
+        self.assertEqual(response.status_code, 404, "Status code isn't 404.")
+
+    def test_get_amenity(self):
+
+        response = self.client.get(f"/api/v1/rooms/amenities/{self.amenity.pk}")
+        data = response.json()
+
+        self.assertEqual(response.status_code, 200, "Status code isn't 200.")
+        self.assertIsInstance(data, dict, "Data isn't a dict.")
+        self.assertEqual(data["name"], self.NAME, "Name isn't equal.")
+        self.assertEqual(data["description"], self.DESC, "Description isn't equal.")
+
+    def test_put_amenity(self):
+        new_name = "New Name"
+        new_desc = "New Description"
+
+        response = self.client.put(
+            f"/api/v1/rooms/amenities/{self.amenity.pk}",
+            data={"name": new_name, "description": new_desc},
+        )
+
+        data = response.json()
+
+        self.assertEqual(response.status_code, 200, "Status code isn't 200.")
+        self.assertIsInstance(data, dict, "Data isn't a dict.")
+        self.assertEqual(data["name"], new_name, "Name isn't equal.")
+        self.assertEqual(data["description"], new_desc, "Description isn't equal.")
+
+    def test_delete_amenity(self):
+        response = self.client.delete(f"/api/v1/rooms/amenities/{self.amenity.pk}")
+        self.assertEqual(response.status_code, 204, "Status code isn't 204.")
