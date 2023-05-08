@@ -10,7 +10,6 @@ from django.conf import settings
 
 
 class Me(APIView):
-
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
@@ -54,7 +53,6 @@ class PublicUser(APIView):
 
 
 class ChangePassword(APIView):
-
     permission_classes = (IsAuthenticated,)
 
     def put(self, request):
@@ -85,7 +83,6 @@ class LogIn(APIView):
 
 
 class LogOut(APIView):
-
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
@@ -106,3 +103,10 @@ class JWTLogIn(APIView):
             token = jwt.encode({"pk": user.pk}, settings.SECRET_KEY, algorithm="HS256")
             return Response({"token": token})
         return Response({"error": "wrong password"})
+
+
+class GithubLogIn(APIView):
+    def post(self, request):
+        code = request.data.get("code")
+        print(code)
+        return Response()
