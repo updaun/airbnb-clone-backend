@@ -101,5 +101,7 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    queryset = Category.objects.filter(
+        kind=Category.CategoryKindChoices.ROOMS,
+    )
