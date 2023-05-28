@@ -33,7 +33,6 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class Amenities(APIView):
-
     # http://127.0.0.1:8000/api/v1/rooms/amenities/
     def get(self, request):
         all_amenities = Amenity.objects.all()
@@ -77,7 +76,6 @@ class AmenityDetail(APIView):
 
 
 class Rooms(APIView):
-
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
@@ -106,8 +104,10 @@ class Rooms(APIView):
                     for amenity_pk in amenities:
                         amenity = Amenity.objects.get(pk=amenity_pk)
                         room.amenities.add(amenity)
-                    serializer = RoomDetailSerializer(room)
-                return Response(serializer.data)
+                    serializer = RoomDetailSerializer(
+                        room, context={"request": request}
+                    )
+                    return Response(serializer.data)
             except Exception:
                 raise exceptions.ParseError("Amenity not found")
         else:
@@ -115,7 +115,6 @@ class Rooms(APIView):
 
 
 class RoomDetail(APIView):
-
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_object(self, pk):
@@ -171,7 +170,6 @@ class RoomDetail(APIView):
 
 
 class RoomReviews(APIView):
-
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_object(self, pk):
@@ -224,7 +222,6 @@ class RoomAmenities(APIView):
 
 
 class RoomPhotos(APIView):
-
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_object(self, pk):
@@ -247,7 +244,6 @@ class RoomPhotos(APIView):
 
 
 class RoomBookings(APIView):
-
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_object(self, pk):
