@@ -4,7 +4,6 @@ from .models import Booking
 
 
 class CreateRoomBookingSerializer(serializers.ModelSerializer):
-
     check_in = serializers.DateField()
     check_out = serializers.DateField()
 
@@ -29,11 +28,13 @@ class CreateRoomBookingSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, data):
+        room = self.context.get("room")
         if data["check_out"] <= data["check_in"]:
             raise serializers.ValidationError(
                 "Check in should be smaller then check out."
             )
         if Booking.objects.filter(
+            room=room,
             check_in__lte=data["check_out"],
             check_out__gte=data["check_in"],
         ).exists():
