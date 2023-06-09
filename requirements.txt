@@ -1,0 +1,15 @@
+Django
+pillow
+requests
+django-environ
+djangorestframework
+django-cors-headers
+django-filter
+django-extensions
+django-rest-auth
+strawberry-graphql
+strawberry-graphql-django
+pyjwt
+psycopg2-binary
+whitenoise[brotli]
+gunicorn
