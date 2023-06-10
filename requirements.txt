@@ -1,5 +1,4 @@
 Django
-pillow
 requests
 django-environ
 djangorestframework
@@ -10,6 +9,7 @@ django-rest-auth
 strawberry-graphql
 strawberry-graphql-django
 pyjwt
+dj-database-url
 psycopg2-binary
 whitenoise[brotli]
 gunicorn
