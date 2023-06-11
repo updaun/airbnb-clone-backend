@@ -34,6 +34,7 @@ DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = [
     "localhost",
+    "backend.updaun.site",
 ]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
@@ -193,11 +194,15 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://updaun.site", "https://www.updaun.site"]
+    CSRF_TRUSTED_ORIGINS = ["https://updaun.site", "https://www.updaun.site"]
+
+
 CORS_ALLOW_CREDENTIALS = True
-
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
-
 GH_SECRET = env("GH_SECRET")
 KAKAO_ID = env("KAKAO_ID")
 
@@ -207,6 +212,8 @@ CF_ID = env("CF_ID")
 
 # Sentry
 if not DEBUG:
+    SESSION_COOKIE_DOMAIN = ".updaun.site"
+    CSRF_COOKIE_DOMAIN = ".updaun.site"
     sentry_sdk.init(
         dsn="https://f93fe594cfb84a7e8519345148765eac@o4505341110190080.ingest.sentry.io/4505341123035136",
         integrations=[
