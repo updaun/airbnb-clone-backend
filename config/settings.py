@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import os
 import dj_database_url
 
@@ -199,3 +201,15 @@ KAKAO_ID = env("KAKAO_ID")
 
 CF_TOKEN = env("CF_TOKEN")
 CF_ID = env("CF_ID")
+
+
+# Sentry
+if not DEBUG:
+    sentry_sdk.init(
+        dsn="https://f93fe594cfb84a7e8519345148765eac@o4505341110190080.ingest.sentry.io/4505341123035136",
+        integrations=[
+            DjangoIntegration(),
+        ],
+        traces_sample_rate=1.0,
+        send_default_pii=True,
+    )
