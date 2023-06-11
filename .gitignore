@@ -173,7 +173,7 @@ cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
-0*_*.py
+# 0*_*.py
 
 *.jpg
 *.png
